@@ -1,10 +1,24 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
 
 function App() {
   return (
-    <>
-      <h1>Test</h1>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+      </Routes>
+    </Router>
   );
 }
 
