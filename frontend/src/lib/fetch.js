@@ -18,4 +18,15 @@ const login = async (email, password) => {
   }
 };
 
-export { login, register };
+async function newBook(formData) {
+  try {
+    const res = await instance.post("/books", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+export { login, register, newBook };

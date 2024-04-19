@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-sm ">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-2 px-4">
         <Link
           to="/"
           className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -38,7 +38,7 @@ export default function Navbar() {
             <Link to="/newbook">
               <button
                 type="button"
-                className="text-white mr-4 bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-lg text-sm px-4 py-2 text-center ">
+                className="text-white mr-4 bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-md text-sm px-3 py-1 shadow-md text-center ">
                 Add New Book
               </button>
             </Link>
@@ -47,7 +47,7 @@ export default function Navbar() {
             <Link to="/login">
               <button
                 type="button"
-                className="text-white bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-lg text-sm px-4 py-2 text-center ">
+                className="text-white bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-md text-sm px-3 py-1 shadow-md text-center ">
                 Login
               </button>
             </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
             <Link to="/">
               <button
                 type="button"
-                className="text-white bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                className="text-white bg-gradient-to-b from-blue-600 to-blue-700 hover:opacity-90 duration-300 font-medium rounded-md text-sm px-3 py-1 shadow-md text-center"
                 onClick={handleLogOut}>
                 Logout
               </button>
