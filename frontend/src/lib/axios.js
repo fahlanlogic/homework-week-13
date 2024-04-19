@@ -1,8 +1,7 @@
 import axios from "axios";
 
 // SET UP AXIOS
-const baseUrl = "http://localhost:8000";
-const instance = axios.create({ baseUrl });
+const instance = axios.create({ baseURL: "http://localhost:8000" });
 
 // ADD INTERCEPTORS TO ADD AUTH TOKEN TO REQUEST HEADERS
 instance.interceptors.request.use(config => {

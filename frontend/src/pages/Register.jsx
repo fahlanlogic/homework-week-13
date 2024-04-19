@@ -1,24 +1,21 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../lib/fetch";
+import { register } from "../lib/fetch";
+// import { useState } from "react";
 
-export default function Login() {
-  const [formData, setFormData] = useState({});
+export default function Register() {
   const navigate = useNavigate();
-
-  const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const user = await login(formData.email, formData.password);
-      window.localStorage.setItem("token", user.token);
-      navigate("/");
+      await register(
+        e.target.name.value,
+        e.target.email.value,
+        e.target.password.value
+      );
+      alert("You have been successfully registered!");
+      navigate("/login");
     } catch (error) {
       alert(error.message);
     }
@@ -29,35 +26,42 @@ export default function Login() {
       <div className="hero min-h-screen px-4 md:w-5/6 max-w-md mx-auto flex items-center">
         <div className="w-full">
           <h1 className="text-3xl font-bold mb-10 text-slate-800 md:text-4xl">
-            Login
+            Register
           </h1>
           <form
             className="flex flex-col gap-4"
             onSubmit={handleSubmit}>
             <input
-              type="email"
-              id="email"
-              placeholder="Email"
+              type="name"
+              name="name"
+              placeholder="Enter your name"
               className="border px-3 py-2 rounded-full"
-              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="user@mail.com"
+              className="border px-3 py-2 rounded-full"
+              required
             />
             <input
               type="password"
-              id="password"
+              name="password"
               placeholder="Password"
               className="border p-2 mb-5 px-3 py-2 rounded-full"
-              onChange={handleChange}
+              required
             />
             <button
               className="bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg rounded-full p-2 font-semibold hover:opacity-90 duration-300 disabled:bg-pink-300"
               type="submit">
-              Login
+              Register
             </button>
           </form>
           <div className="flex gap-2 justify-center mt-6">
-            <p className="text-slate-700">Dont have an account?</p>
-            <Link to={"/register"}>
-              <span className="text-blue-600">Register</span>
+            <p className="text-slate-700">Have an account?</p>
+            <Link to={"/login"}>
+              <span className="text-blue-600">Login</span>
             </Link>
           </div>
         </div>
