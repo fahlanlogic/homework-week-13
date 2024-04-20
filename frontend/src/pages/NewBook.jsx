@@ -1,36 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { newBook } from "../lib/fetch";
 
 export default function NewBook() {
-  const [formData, setFormData] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  console.log(selectedImage);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+
     try {
       await newBook(formData);
       e.target.reset();
       alert("Book created successfully");
+      setSelectedImage("");
     } catch (error) {
       alert(error.message);
     }
     console.log(formData);
   };
 
-  useEffect(() => {
-    if (formData.image) {
-      setSelectedImage(`http://localhost:8000/${formData.image}`);
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   if (formData.image) {
+  //     setSelectedImage(`http://localhost:8000/${formData.image}`);
+  //   }
+  // }, [formData]);
 
   return (
     <main>
@@ -47,9 +40,9 @@ export default function NewBook() {
                 </label>
                 <input
                   type="text"
-                  id="title"
+                  name="title"
                   className="border px-3 py-2 rounded-lg"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   required
                 />
               </div>
@@ -59,9 +52,9 @@ export default function NewBook() {
                 </label>
                 <input
                   type="text"
-                  id="author"
+                  name="author"
                   className="border px-3 py-2 rounded-lg"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   required
                 />
               </div>
@@ -71,9 +64,9 @@ export default function NewBook() {
                 </label>
                 <input
                   type="text"
-                  id="publisher"
+                  name="publisher"
                   className="border px-3 py-2 rounded-lg"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   required
                 />
               </div>
@@ -83,19 +76,21 @@ export default function NewBook() {
                 </label>
                 <input
                   type="number"
-                  id="year"
+                  name="year"
                   className="border px-3 py-2 rounded-lg"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   required
                 />
               </div>
               <div className="formControl flex flex-col text-left gap-1 w-full">
-                <label htmlFor="pages">Pages</label>
+                <label htmlFor="pages">
+                  Pages <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="number"
-                  id="pages"
+                  name="pages"
                   className="border px-3 py-2 rounded-lg"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                 />
               </div>
             </div>
@@ -106,11 +101,15 @@ export default function NewBook() {
                 </label>
                 <input
                   type="file"
-                  id="image"
+                  name="image"
                   className="border px-3 py-2 rounded-lg w-full"
-                  onChange={handleChange}
+                  // onChange={handleChange}
                   accept="image/*"
                   required
+                  onChange={e => {
+                    const file = e.target.files[0];
+                    setSelectedImage(URL.createObjectURL(file));
+                  }}
                 />
               </div>
               {selectedImage && (

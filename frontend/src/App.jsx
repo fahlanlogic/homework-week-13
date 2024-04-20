@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NewBook from "./pages/NewBook";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -25,8 +26,11 @@ function App() {
         />
         <Route
           path="/newbook"
-          element={<NewBook />}
-        />
+          element={
+            <PrivateRoute>
+              <NewBook />
+            </PrivateRoute>
+          }></Route>
       </Routes>
     </Router>
   );
