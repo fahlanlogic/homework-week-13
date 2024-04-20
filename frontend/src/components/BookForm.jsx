@@ -47,7 +47,6 @@ export default function BookForm({ bookData }) {
     } catch (error) {
       alert(error.message);
     }
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -59,12 +58,14 @@ export default function BookForm({ bookData }) {
 
   return (
     <main>
-      <div className="min-h-screen px-4 md:w-5/6 max-w-2xl mx-auto flex items-center flex-col justify-center">
-        <h1 className="text-3xl text-slate-800 font-bold mb-8">New Book</h1>
+      <div className="min-h-screen mt-20 mb-6 lg:my-0 px-4 md:w-5/6 max-w-2xl mx-auto flex items-center flex-col justify-center">
+        <h1 className="text-3xl text-slate-800 font-bold lg:mb-8 mb-4">
+          New Book
+        </h1>
         <form
           onSubmit={handleSubmit}
           className="w-full">
-          <div className="flex gap-16 w-full">
+          <div className="lg:flex gap-16 w-full">
             <div className="flex flex-col gap-4 w-full">
               <div className="formControl flex flex-col text-left gap-1">
                 <label htmlFor="title">
