@@ -1,10 +1,22 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { editBook, newBook } from "../lib/fetch";
+import { deleteBook, editBook, newBook } from "../lib/fetch";
+import { useNavigate, useParams } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export default function BookForm({ bookData }) {
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleDeleteBook = async () => {
+    try {
+      await deleteBook(id);
+      navigate("/");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -152,6 +164,17 @@ export default function BookForm({ bookData }) {
             </div>
           </div>
         </form>
+        {bookData && (
+          <div className="flex gap-16 w-full">
+            <div className="flex flex-col gap-4 w-full">
+              <button
+                className="my-6 bg-gradient-to-b from-blue-700 to-blue-800 text-white shadow-lg rounded-md p-2 font-semibold w-full hover:opacity-90 duration-300 disabled:bg-pink-300"
+                onClick={handleDeleteBook}>
+                Delete Book
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );

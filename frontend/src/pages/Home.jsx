@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
-import { deleteBook, getAllBooks } from "../lib/fetch";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { getAllBooks } from "../lib/fetch";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const handleDeleteBook = async () => {
-    try {
-      await deleteBook(id);
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,6 +18,7 @@ export default function Home() {
 
     fetchBooks();
   }, []);
+  console.log(books);
 
   return (
     <main className="min-h-screen min-w-full mx-auto">
@@ -49,35 +39,28 @@ export default function Home() {
                   />
                 </div>
               </Link>
-              <div className="flex flex-col gap-2 px-6 py-2 w-full text-left">
+              <div className="flex flex-col gap-2 px-6 py-2 justify-between w-full text-left">
                 <h1 className="text-xl font-semibold pb-3">{book.title}</h1>
                 <div className="flex gap-2 flex-col mb-6">
-                  <p className="px-1 border-r">
+                  <p>
                     Author: <b>{book.author}</b>
                   </p>
-                  <p className="px-1 border-r">
+                  <p>
                     Publisher: <b>{book.publisher}</b>
                   </p>
-                  <p className="px-1 border-r">
+                  <p>
                     Year: <b>{book.year}</b>
                   </p>
-                  <p className="px-1 ">
+                  <p>
                     Pages: <b>{book.pages}</b>
                   </p>
                 </div>
                 {isLogin && (
                   <Link to={`/editbook/${book.id}`}>
-                    <p className="text-center items-end rounded-md w-full cursor-pointer bg-gradient-to-b from-blue-800 to-blue-900 text-white  py-2 px-4">
+                    <p className="items-end self-end rounded-md w-20 text-center cursor-pointer bg-gradient-to-b from-blue-800 to-blue-900 text-white  py-2 px-4">
                       Edit
                     </p>
                   </Link>
-                )}
-                {isLogin && (
-                  <button
-                    onClick={handleDeleteBook}
-                    className="items-end rounded-md w-full cursor-pointer bg-gradient-to-b from-blue-800 to-blue-900 text-white  py-2 px-4">
-                    Delete
-                  </button>
                 )}
               </div>
             </div>
