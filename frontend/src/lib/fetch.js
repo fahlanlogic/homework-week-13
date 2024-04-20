@@ -38,4 +38,45 @@ async function getAllBooks() {
   }
 }
 
-export { login, register, newBook, getAllBooks };
+async function editBook(id, title, author, publisher, year, pages) {
+  try {
+    const response = await instance.put(`/books/${id}`, {
+      title,
+      author,
+      publisher,
+      year,
+      pages,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function getBookDetailById(id) {
+  try {
+    const response = await instance.get(`/books/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+async function deleteBook(id) {
+  try {
+    const response = await instance.delete(`/books/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message || "Something went wrong");
+  }
+}
+
+export {
+  login,
+  register,
+  newBook,
+  getAllBooks,
+  editBook,
+  getBookDetailById,
+  deleteBook,
+};
